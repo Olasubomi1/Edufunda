@@ -1,0 +1,18 @@
+.container {
+  margin: 10px;
+}
+.introContainer {
+  position: absolute;
+}
+.edufunda {
+  color: navy;
+}
+.introImage {
+  height: 80vh;
+  z-index: 4;
+}
+.intro {
+  text-align: center;
+  position: relative;
+  z-index: 5;
+}
