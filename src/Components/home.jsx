@@ -7,7 +7,7 @@ function Home() {
     <div>
       <div className="container">
         <div className="row">
-          <div className="col ">
+          <div className="col">
             <div>
               <h1 className="edufunda">Edufunda</h1>
               <img src="learning.svg" className="introImage" />
