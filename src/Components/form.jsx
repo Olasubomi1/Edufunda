@@ -7,7 +7,7 @@ import "./form.css";
 class Form extends Component {
   render() {
     return (
-      <div>
+      <div className="formContainer">
         <form className="row g-3 form">
           <h1>Welcome to Edufunda</h1>
           <p>
@@ -37,25 +37,27 @@ class Form extends Component {
               placeholder="Johnson"
             />
           </div>
-          <div className="col-md-4">
-            <label htmlFor="inputState" className="form-label">
-              Country
-            </label>
-            <FlagSelect />
-          </div>
-          <div className="col-md-4">
-            <label
-              htmlFor="inputState"
-              className="form-label"
-              defaultValue={"DEFAULT"}
-            >
-              Phone Number
-            </label>
-            <IntlTelInput
-              preferredCountries={["za"]}
-              containerClassName="intl-tel-input"
-              inputClassName="form-control"
-            />
+          <div className="nationalityDetails">
+            <div className="col-md-6">
+              <label htmlFor="inputState" className="form-label">
+                Country
+              </label>
+              <FlagSelect />
+            </div>
+            <div className="col-md-5">
+              <label
+                htmlFor="inputState"
+                className="form-label"
+                defaultValue={"DEFAULT"}
+              >
+                Phone Number
+              </label>
+              <IntlTelInput
+                preferredCountries={["za"]}
+                containerClassName="intl-tel-input"
+                inputClassName="form-control"
+              />
+            </div>
           </div>
           <div className="col-12">
             <label htmlFor="inputEmailAddress" className="form-label">
