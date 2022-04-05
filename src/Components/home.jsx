@@ -24,7 +24,9 @@ function Home() {
           </div>
         </div>
         <div className="col">
-          <Form />
+          <div className="right">
+            <Form />
+          </div>
         </div>
       </div>
     </div>

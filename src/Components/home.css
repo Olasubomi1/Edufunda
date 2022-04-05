@@ -6,6 +6,9 @@
   left: 0;
   background-color: hsl(339, 54%, 91%);
 }
+.right {
+  padding: 5vw;
+}
 .edufunda {
   margin-top: 20px;
   margin-left: 20px;
