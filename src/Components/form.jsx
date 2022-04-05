@@ -1,14 +1,56 @@
-import React, { Component } from "react";
+import React from "react";
 import IntlTelInput from "react-intl-tel-input";
 import FlagSelect from "./flagSelect";
+import Input from "./input";
+import { registerUser } from "./../services/httpservices";
+import Joi from "joi-browser";
+import FormValidation from "./formValidation";
 import "react-intl-tel-input/dist/main.css";
 import "./form.css";
+class Form extends FormValidation {
+  state = {
+    data: {
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+    },
+    errors: {},
+  };
 
-class Form extends Component {
+  schema = {
+    firstname: Joi.string()
+      .required()
+      .label("Firstname"),
+    lastname: Joi.string()
+      .required()
+      .label("Lastname"),
+    email: Joi.string()
+      .email()
+      .required(),
+    password: Joi.string()
+      .min(5)
+      .required()
+      .label("Password"),
+  };
+  doSubmit = async () => {
+    try {
+      const response = await registerUser(this.state.data);
+      // console.log(response);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.name = ex.response.data;
+        this.setState({ errors });
+      }
+    }
+  };
+
   render() {
+    const { data, errors } = this.state;
     return (
       <div className="formContainer">
-        <form className="row g-3 form">
+        <form onSubmit={this.handleSubmit} className="row g-3 form">
           <h1>Welcome to Edufunda</h1>
           <p>
             Lorem ipsum dolor sit amen, consectetur
@@ -16,25 +58,21 @@ class Form extends Component {
             adipiscing elit
           </p>
           <div className="col-md-6">
-            <label htmlFor="inputFirstname" className="form-label">
-              First Name
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="inputFirstname"
-              placeholder="Barley"
+            <Input
+              label="First Name"
+              name="firstname"
+              value={data.firstname}
+              onChange={this.handleChange}
+              error={errors.name}
             />
           </div>
           <div className="col-md-6">
-            <label htmlFor="inputLastname" className="form-label">
-              Last Name
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="inputPassword4"
-              placeholder="Johnson"
+            <Input
+              label="Last Name"
+              name="lastname"
+              value={data.lastname}
+              onChange={this.handleChange}
+              error={errors.lastname}
             />
           </div>
           <div className="nationalityDetails">
@@ -60,41 +98,40 @@ class Form extends Component {
             </div>
           </div>
           <div className="col-12">
-            <label htmlFor="inputEmailAddress" className="form-label">
-              Email Address
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="inputEmailAddress"
-              placeholder="barly@dipainhouse.com"
+            <Input
+              label="Email"
+              name="email"
+              value={data.email}
+              onChange={this.handleChange}
+              error={errors.email}
             />
           </div>
           <div className="col-12">
-            <label htmlFor="inputPassword" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="inputAddress"
-              placeholder="**********"
+            <Input
+              label="Password"
+              name="password"
+              value={data.password}
+              onChange={this.handleChange}
+              error={errors.password}
             />
           </div>
           <div className="col-12">
-            <label htmlFor="inputConfirmPassword" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="inputConfirmAddress"
-              placeholder="**********"
+            <Input
+              label="Password"
+              name="password"
+              value={data.password}
+              onChange={this.handleChange}
+              error={errors.password}
             />
           </div>
           <div className="col-12">
-            <button type="submit" className="btn btn-danger button">
-              Sign in
+            <button
+              type="submit"
+              disabled={this.validate()}
+              onClick={() => this.doSubmit()}
+              className="btn btn-danger button"
+            >
+              Register
             </button>
           </div>
           <div className="signin">
