@@ -14,6 +14,7 @@ class Form extends FormValidation {
       lastname: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
     errors: {},
   };
@@ -32,6 +33,10 @@ class Form extends FormValidation {
       .min(5)
       .required()
       .label("Password"),
+    confirmPassword: Joi.string()
+      .min(5)
+      .required()
+      .label("Confirm Password"),
   };
   doSubmit = async () => {
     try {
@@ -63,7 +68,7 @@ class Form extends FormValidation {
               name="firstname"
               value={data.firstname}
               onChange={this.handleChange}
-              error={errors.name}
+              error={errors.firstname}
             />
           </div>
           <div className="col-md-6">
@@ -117,11 +122,11 @@ class Form extends FormValidation {
           </div>
           <div className="col-12">
             <Input
-              label="Password"
-              name="password"
-              value={data.password}
+              label="Confirm Password"
+              name="confirmPassword"
+              value={data.confirmPassword}
               onChange={this.handleChange}
-              error={errors.password}
+              error={errors.confirmPassword}
             />
           </div>
           <div className="col-12">
